@@ -1,8 +1,22 @@
 const express = require('express');
-const routes = express.Router();
+const automovelController = require('./controllers/automovel');
+const estadiaController = require('./controllers/estadia');
 
-routes.get('/', (req, res) => {
-  return res.json({ titulo: 'Estacionamento ACME' });
+const router = express.Router();
+router.get('/', (req, res) => {
+  res.send('API is running...').end();
 });
 
-module.exports = routes;
+router.post('/automoveis', automovelController.create);
+router.get('/automoveis', automovelController.read);
+router.get('/automoveis/:placa', automovelController.readone);
+router.put('/automoveis/:placa', automovelController.update);
+router.delete('/automoveis/:placa', automovelController.deleteAutomovel);
+
+router.post('/estadias', estadiaController.create);
+router.get('/estadias', estadiaController.read);
+router.get('/estadias/:id', estadiaController.readOne);
+router.put('/estadias/:id', estadiaController.update);
+router.delete('/estadias/:id', estadiaController.remove);
+
+module.exports = router;
